@@ -9,8 +9,10 @@ import Diagramme.Diagramm;
 
 
 public class FourierTransformation {
-	
-	
+
+	/*
+			unused
+	 */
 	public static void berechneFrequenzspektrum(EMGContainer e) {
 		double[][] res=new double[8][];
 		//double resultData[][]=new double[e.getLeange()][e.getAnzahlSensoren()];
@@ -35,17 +37,13 @@ public class FourierTransformation {
 			FastFourierTransformer ftr=new FastFourierTransformer(DftNormalization.STANDARD);
 			Complex result[]=ftr.transform(paddeddata, TransformType.FORWARD);
 			
-			
-			
 			double real[]=new double[result.length];
 			//printComplexArray(result);
 			for(int i=0;i<result.length;i++) {
 				real[i]=result[i].abs();
 			}
+
 			res[sensor]=real;
-			
-			
-						
 		}
 		
 		double sum[]=new double[res[0].length];
@@ -66,7 +64,9 @@ public class FourierTransformation {
 		
 	}
 	
-	
+	/*
+		High-pass filter (Hochpass)
+	 */
 	public static void hochpassFFT(EMGContainer e, int grenze) {
 		double resultData[][]=new double[e.getLeange()][e.getAnzahlSensoren()];
 		for(int sensor=0;sensor<e.getAnzahlSensoren();sensor++) {
@@ -113,7 +113,9 @@ public class FourierTransformation {
 	}
 	
 	
-	
+	/*
+		Low-pass filter (Hochpass)
+	 */
 	public static void tiefpassFFT(EMGContainer e, int grenze) {
 		double resultData[][]=new double[e.getLeange()][e.getAnzahlSensoren()];
 		for(int sensor=0;sensor<e.getAnzahlSensoren();sensor++) {

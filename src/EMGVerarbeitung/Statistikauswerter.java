@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/*
+	Evaluate statistics
+ */
 public class Statistikauswerter {
 	
 	public static Statistiken fasseZusammen(ArrayList<Statistiken> stats) {

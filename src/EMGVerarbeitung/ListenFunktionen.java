@@ -24,7 +24,10 @@ public class ListenFunktionen {
 			e.medianfilter(size);
 		}
 	}*/
-	
+
+	/*
+		reticfy
+	 */
 	public static void gleichrichten(ArrayList<EMGContainer> data) {
 		EMGProcessingSettings.addSetting("Gleichrichter");
 		for(EMGContainer e:data) {

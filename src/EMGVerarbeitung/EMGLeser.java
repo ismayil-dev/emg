@@ -15,7 +15,11 @@ import Zufallswald.Zufallswald;
 
 
 public class EMGLeser {
-	
+
+	/*
+		Import and read file
+	 */
+
 	public static EMGContainer leseRuhewerte(String ppfad) {
 		Path pfad=Paths.get(ppfad);
 		return leseRuhewerte(pfad);
@@ -36,6 +40,7 @@ public class EMGLeser {
 		erg.setId(idstring);
 		datei.remove(0);
 		String[] str;
+		// convert data and split (by space " " ) to matrix/multi-dimensional array
 		double matrix[][]= new double[datei.size()][8];
 		for(int i=0; i<datei.size();i++) {
 			str = datei.get(i).split(" ");
@@ -43,12 +48,15 @@ public class EMGLeser {
 				matrix[i][z]=Integer.parseInt(str[z]);
 			}
 		}
+
 		erg.setDaten(matrix);
 		return erg;
 	}
 	
 	
-	
+	/*
+		read Ruhewerte in each folder
+	 */
 	public static EMGContainer leseEMG(Path pfad) {
 		List<String> datei;
 		try {
@@ -64,6 +72,7 @@ public class EMGLeser {
 		System.out.println("Lese: "+pfad.toString());
 		idstring=idstring.substring(4, idstring.length());
 		String[] str=idstring.split("-");
+
 		EMGContainer ergebnis=new EMGContainer(Integer.parseInt(str[0]), Integer.parseInt(str[1]));
 		datei.remove(0);
 		double matrix[][]= new double[datei.size()][8];
@@ -82,7 +91,9 @@ public class EMGLeser {
 		return leseEMG(pfad);
 	}
 	
-	
+	/*
+		for random forest algorithm
+	 */
 	public static Zufallswald ladeRFModell(String fn) {
 		Path file=Paths.get("rfModel/"+fn);
 		InputStream in;
@@ -138,8 +149,10 @@ public class EMGLeser {
 			}
 			return null;
 	}
-	
-	
+
+	/*
+		read directory & pass each file to leseEMG func
+	 */
 	public static ArrayList<EMGContainer> leseVerzeichnis(String ppfad) throws IOException {
 		ArrayList<EMGContainer> ergebnis=new ArrayList<EMGContainer>();
 		File fpfad=new File(ppfad);
@@ -153,7 +166,11 @@ public class EMGLeser {
 		System.out.println("Anzahl gelesener Datein: "+ergebnis.size());
 		return ergebnis;
 	}
-	
+
+
+	/*
+		Read each file in Raw data\KNN20 path
+	 */
 	public static ArrayList<EMGContainer> leseVerzeichnisUnklassifiziert(String ppfad) throws IOException{
 		ArrayList<EMGContainer> ergebnis=new ArrayList<EMGContainer>();
 		File fpfad=new File(ppfad);
@@ -168,6 +185,9 @@ public class EMGLeser {
 		return ergebnis;
 	}
 
+	/**
+	 *  same as	@method leseRuhewerte()
+	 */
 	private static EMGContainer leseUnklassifiziertesEMG(Path pfad) {
 		List<String> datei;
 		try {

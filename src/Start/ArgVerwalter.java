@@ -38,7 +38,9 @@ public class ArgVerwalter {
 		
 		
 		//Jetzt kommen entwerder die Ruhewerte oder das speichern oder einstellungen etc.
+		//Now come either the rest values or the saving of the settings etc.
 		//Falls ein neues Modell angelegt wird, sind die folgenden parameter Optional.
+		//If a new model is created, the following parameters are optional
 		if(!argsList.isEmpty()&&argsList.get(0).equals("R")) {
 			sr.setKuerzen(true);
 			argsList.remove(0);		
@@ -52,10 +54,12 @@ public class ArgVerwalter {
 			argsList.remove(0);	
 		}
 		//Jetzt muss wenn modell geladen worden die daten kommen, bei neuem können die Settings kommen.
+		//Now if the model has been loaded, the data must come, the settings can come again
 		
 		//Nach den beiden können keine Args mehr folgen, falls ein Modell geladen wurde
+		//Args cannot follow after the two if a model has been loaded
 		if(!argsList.isEmpty()&&argsList.get(0).equals("KT")) {
-			handleKT(argsList.get(1));	//Der Ordner mit den zu klassifizierenden Daten
+			handleKT(argsList.get(1));	//Der Ordner mit den zu klassifizierenden Daten //The folder with the data to be classified
 			return;
 		}
 		//Bei Rohdaten

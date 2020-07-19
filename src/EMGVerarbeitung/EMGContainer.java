@@ -44,7 +44,9 @@ public class EMGContainer implements Cloneable, Comparable<Object>, Serializable
 	
 	
 	
-	
+	/*
+
+	 */
 	public void mittelwertfilter(int groesse) {
 		double z1[][]=daten;
 		double z2[][]=new double[z1.length][z1[0].length];
@@ -63,7 +65,9 @@ public class EMGContainer implements Cloneable, Comparable<Object>, Serializable
 	
 	
 	private double[] berechneSumme() {
+
 		double sum[]=new double[daten.length];
+
 		for(int i=0;i<daten.length;i++) {
 			for(int j=0;j<daten[0].length;j++) {
 				sum[i]+=daten[i][j];
@@ -200,9 +204,12 @@ public class EMGContainer implements Cloneable, Comparable<Object>, Serializable
 	}
 	
 	public void schneide(int beginn, int ende) {
+		//beginn = 7
+		//ende = 9
 		if(zahl==-1)return;
 		assert ende>beginn;
 		double tmp[][]=new double[(ende-beginn)+1][daten[0].length];
+		// tmp = [3][8]
 		for(int i=beginn;i<=ende;i++) {
 			for(int j=0;j<daten[0].length;j++) {
 				tmp[i-beginn][j]=daten[i][j];

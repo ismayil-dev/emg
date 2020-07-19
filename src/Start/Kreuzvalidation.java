@@ -9,7 +9,9 @@ import EMGVerarbeitung.Statistikauswerter;
 import EMGVerarbeitung.Statistiken;
 
 
-
+/*
+	Cross validation
+ */
 public class Kreuzvalidation {
 	
 	ArrayList<EMGContainer> daten;
