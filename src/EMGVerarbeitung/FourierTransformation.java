@@ -56,13 +56,10 @@ public class FourierTransformation {
 		}
 		
 		for(int i=0;i<sum.length;i++) {
-			
 			System.out.println(((i+1)*(200/(double)e.getLeange())+" "+sum[i]));
-		
 		}
 		
 		Diagramm.printArray(sum,e.getLeange());
-		
 	}
 	
 	/*
@@ -146,6 +143,7 @@ public class FourierTransformation {
 			
 			double freqProIndex=200/(double)e.getLeange();
 			double grenzeHz=(double)grenze/freqProIndex;
+
 			//System.out.println("GRHZ INDEX:"+grenzeHz);
 			for(int i=(int)Math.round(grenzeHz);i<result.length-grenze;i++) {
 				result[i]=result[i].multiply(0);
