@@ -11,11 +11,12 @@ import Diagramme.Diagramm;
 public class FourierTransformation {
 
 	/*
-			unused
+
 	 */
 	public static void berechneFrequenzspektrum(EMGContainer e) {
 		double[][] res=new double[8][];
 		//double resultData[][]=new double[e.getLeange()][e.getAnzahlSensoren()];
+		// double result Data
 		for(int sensor=0;sensor<e.getAnzahlSensoren();sensor++) {
 			double sdata[]=e.getSensordaten(sensor);
 			double paddeddata[];

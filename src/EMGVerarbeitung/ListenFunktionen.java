@@ -10,7 +10,9 @@ public class ListenFunktionen {
 	}
 	
 	
-	
+	/*
+		route/distance/track
+	 */
 	public static void strecke(ArrayList<EMGContainer> data, int size) {
 		EMGProcessingSettings.addSetting("Stretch "+size);
 		for(EMGContainer e:data) {
@@ -34,20 +36,29 @@ public class ListenFunktionen {
 			e.gleichrichten();
 		}
 	}
-	
+
+	/*
+	 	average filter
+	 */
 	public static void mittelwertfilter(ArrayList<EMGContainer> data, int size) {
 		EMGProcessingSettings.addSetting("Mittelwertfilter "+size);
 		for(EMGContainer e: data) {
 			e.mittelwertfilter(size);
 		}
 	}
-	
+
+	/*
+	 	low pass filter
+	 */
 	public static void tiefpassfilterFFT(ArrayList<EMGContainer> data, int cuttoff) {
 		for(EMGContainer e:data) {
 			FourierTransformation.tiefpassFFT(e, cuttoff);
 		}
 	}
-	
+
+	/*
+		high pass filter
+	 */
 	public static void hochpassfilterFFT(ArrayList<EMGContainer> data, int cuttoff) {
 		for(EMGContainer e:data) {
 			FourierTransformation.hochpassFFT(e, cuttoff);
@@ -55,7 +66,9 @@ public class ListenFunktionen {
 	}
 	
 	
-	
+	/*
+		folding
+	 */
 	public static void faltung(ArrayList<EMGContainer> data,double kern[]) {
 		String kernS="";
 		for(int i=0;i<kern.length;i++) {
@@ -68,7 +81,9 @@ public class ListenFunktionen {
 	}
 	
 
-	
+	/*
+		binominal filter
+	 */
 	private static double binominalkoeffizient(int n, int k) {
 		if(k==0)return 1;
 		if(2*k>n)k=n-k;
@@ -78,7 +93,10 @@ public class ListenFunktionen {
 		}
 		return erg;
 	}
-	
+
+	/*
+		binomal filter
+	 */
 	public static double[] binominalfilter(int groesse) {
 		groesse--;
 		double[] kern=new double[groesse+1];
@@ -95,7 +113,9 @@ public class ListenFunktionen {
 		}
 		return kern;
 	}
-	
+	/*
+
+	 */
 	public static int getAnzahlKlassen(ArrayList<EMGContainer> emgs) {
 		ArrayList<Integer> cont=new ArrayList<Integer>();
 		for(EMGContainer e: emgs) {
@@ -106,7 +126,9 @@ public class ListenFunktionen {
 		return cont.size();
 	}
 	
-	
+	/*
+		copy array
+	 */
 	public static ArrayList<EMGContainer> tiefeKopie(ArrayList<EMGContainer> emgs){
 		ArrayList<EMGContainer> copy=new ArrayList<EMGContainer>();
 		for(EMGContainer e: emgs) {
@@ -114,7 +136,10 @@ public class ListenFunktionen {
 		}
 		return copy;
 	}
-	
+
+	/*
+		average total
+	 */
 	public static double durchsnittDerSumme(EMGContainer e) {
 		double sum[]=e.getSensordaten(0);
 		for(int i=1;i<e.getAnzahlSensoren();i++) {
@@ -131,14 +156,18 @@ public class ListenFunktionen {
 		return sum2;
 	}
 	
-	
+	/*
+		short without rest
+	 */
 	public static void kuerzeOhneRuhe(ArrayList<EMGContainer> emgs) {
 		for(EMGContainer e: emgs) {
 			e.kuerzeEMG();
 		}
 	}
-	
-	
+
+	/*
+		short with rest
+	 */
 	public static void kuerzeMitRuhe(ArrayList<EMGContainer> emgs, EMGContainer ruhe, int fenstergroesse, double faktor) {
 		EMGProcessingSettings.addSetting("Cut EMGs window: "+fenstergroesse+" Faktor: "+faktor);
 		double threshold=faktor*(durchsnittDerSumme(ruhe)+berechneStandartabweichung(ruhe));
@@ -152,7 +181,9 @@ public class ListenFunktionen {
 	}
 	
 	
-	
+	/*
+		remove rest values
+	 */
 	public static EMGContainer entferneRuhewerte(ArrayList<EMGContainer> emgs) {
 		int so=emgs.size();
 		EMGContainer r;
@@ -170,11 +201,14 @@ public class ListenFunktionen {
 	}
 
 	
-	
+	/*
+		calculate standard deviation
+	 */
 	public static double berechneStandartabweichung(EMGContainer e) {
 		double mean=durchsnittDerSumme(e);
 		double stdsum=0;
-		//Summiere alle Datenreihen auf
+		// Summiere alle Datenreihen auf
+		// Sum up all data series
 		double sum[]=e.getSensordaten(0);
 		for(int i=1;i<e.getAnzahlSensoren();i++) {
 			double tmp[]=e.getSensordaten(i);
@@ -190,11 +224,12 @@ public class ListenFunktionen {
 		stdsum=Math.sqrt(stdsum);
 		return stdsum;
 		
-		
 	}
 	
 
-
+	/*
+		rectify
+	 */
 	public static void gleichrichten(EMGContainer ruhewerte) {
 		ruhewerte.gleichrichten();
 	}
@@ -233,6 +268,7 @@ public class ListenFunktionen {
 	
 	
 	//Samplet die Eingabe auf die entsprechende Frequenz (MYO hat 200HZ sampling Rate)
+	// Sample the input to the appropriate frequency
 	public static void aendereTaktrate(ArrayList<EMGContainer> emgs,int frequenz) {
 		EMGProcessingSettings.addSetting("Samplerate "+frequenz);
 

@@ -19,6 +19,7 @@ public class ArgVerwalter {
 	
 	public ArgVerwalter(String args[]) {
 		ArrayList<String> argsList=new ArrayList<String>();
+
 		for(int i=0;i<args.length;i++) {
 			argsList.add(args[i]);
 		}
@@ -92,6 +93,9 @@ public class ArgVerwalter {
 		
 	}
 
+	/*
+		handle kNN
+	 */
 	private void handleKNNSettings(ArrayList<String> argsList) {
 		NaechsteNachbarn n=(NaechsteNachbarn) sr.getModell();
 		
@@ -121,7 +125,9 @@ public class ArgVerwalter {
 	}
 
 
+	/*
 
+	 */
 	private void filter(ArrayList<EMGContainer> input) {
 		EMGContainer ruhewerte = null;
 		if(sr.istGekuerzt()) {
@@ -177,8 +183,6 @@ public class ArgVerwalter {
 
 				ListenFunktionen.aendereTaktrate(input, val);
 			}
-	
-			
 		}
 
 		if(sr.istGekuerzt()) {
@@ -258,19 +262,20 @@ public class ArgVerwalter {
 	}
 
 	//Erzeugt einen neuen Klassifizierer und setzt die Trainingsvariable auf true.
+	//Creates a new classifier and sets the training variable to true.
 	private void handleNewModel(ArrayList<String> argsList) {
-		System.out.println("Es wird ein neues Modell generiert.");
+		System.out.println("Es wird ein neues Modell generiert."); // A new model is generated
 		sr.setDatenpfad(argsList.get(1));
 		if(argsList.get(0).equals("NDTW")) {
-			System.out.println("Als Verfahren wurde DTW ausgewählt.");
+			System.out.println("Als Verfahren wurde DTW ausgewählt."); // Als Verfahren wurde DTW ausgewählt
 			sr.setModell(new DynamicTimeWarping());
 		}
 		if(argsList.get(0).equals("NRF")) {
-			System.out.println("Als Verfahren wurde RF ausgewählt.");
+			System.out.println("Als Verfahren wurde RF ausgewählt."); // RF was chosen as the method.
 			sr.setModell(new Zufallswald());
 		}
 		if(argsList.get(0).equals("NKNN")) {
-			System.out.println("Als Verfahren wurde KNN ausgewählt.");
+			System.out.println("Als Verfahren wurde KNN ausgewählt."); // KNN was selected as the procedure.
 			sr.setModell(new NaechsteNachbarn(10));
 		}
 		try {
@@ -289,29 +294,26 @@ public class ArgVerwalter {
 	}
 
 	private void handleLoadModel(ArrayList<String> argsList) {
-		System.out.println("Modell wird geladen...");
+		System.out.println("Modell wird geladen..."); // Loading model ...
 		if(argsList.get(0).equals("LDTW")) {
-			System.out.println("Lade DTW Modell");
-			sr.setInfos("Dynamic Time Warping");
+			System.out.println("Lade DTW Modell"); //Load DTW model
+			sr.setInfos("Dynamic Time Warping"); // Dynamic Time Warping
 			sr.setModell(EMGLeser.ladeDTWModell(argsList.get(1)));
 		}
 		if(argsList.get(0).equals("LRF")) {
-			System.out.println("Lade RF Modell");
+			System.out.println("Lade RF Modell"); //Charge RF Model
 			Zufallswald f=EMGLeser.ladeRFModell(argsList.get(1));
 			sr.setInfos("RandomForest Trees: "+f.getTreeNumber());
 			sr.setModell(f);
 		}
 		if(argsList.get(0).equals("LNN")) {
-			System.out.println("Lade KNN Modell");
+			System.out.println("Lade KNN Modell"); // Load KNN Model
 			NaechsteNachbarn n=EMGLeser.ladeKNNModell(argsList.get(1));
-			sr.setInfos("Nearest Neighbour k: "+n.getK());
+			sr.setInfos("Nearest Neighbour k: "+n.getK()); // Nearest Neighbour:
 			sr.setModell(n);
 		}
 		argsList.remove(0);
 		argsList.remove(0);
 	}
-	
-	
-	
 	
 }

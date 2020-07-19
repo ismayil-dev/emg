@@ -45,7 +45,7 @@ public class EMGContainer implements Cloneable, Comparable<Object>, Serializable
 	
 	
 	/*
-
+		average filter
 	 */
 	public void mittelwertfilter(int groesse) {
 		double z1[][]=daten;
@@ -63,7 +63,9 @@ public class EMGContainer implements Cloneable, Comparable<Object>, Serializable
 	}
 	
 	
-	
+	/*
+		calculate sum
+	 */
 	private double[] berechneSumme() {
 
 		double sum[]=new double[daten.length];
